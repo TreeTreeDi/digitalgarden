@@ -80,17 +80,7 @@ for (let i = 1; i <= 5; i++) {
 3. `queue` 存等待任务。
 4. `add` 判断是立即执行还是排队，`runTask` 执行任务，`scheduleNext` 调度队列。
 
-#### 用 Mermaid 表示状态流转
-```mermaid
-stateDiagram-v2
-    [*] --> Idle: 初始化
-    Idle --> Running: add 请求且 runningCount < maxConcurrency
-    Idle --> Queued: add 请求且 runningCount >= maxConcurrency
-    Running --> Idle: 请求完成且队列为空
-    Running --> Running: 请求完成且队列有任务
-    Queued --> Running: runningCount < maxConcurrency
-    Queued --> Queued: runningCount >= maxConcurrency
-```
+
 
 #### 检查理解漏洞
 - 如果所有请求同时到达，会发生什么？（答：前 `maxConcurrency` 个立即执行，其余排队）
